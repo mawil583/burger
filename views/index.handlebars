@@ -3,19 +3,27 @@
         <div class="col-6">
             <h1>Burgers to eat</h1>
             <ul>
+                {{!-- When the root path is entered into the browser,
+                my route funciton grabs data (object with burger as key 
+                and devoured/burger_name as values) from mySQL and then
+                serves an html page where handlebars inserts mySQL data--}}
                 {{#each burger}}
+                    {{#unless devoured}}
                 <li>Burger Name: {{burger_name}}</li>
-                {{!-- <li>Has been eaten (1 = true, 0 = false): {{devoured}}</li> --}}
-                <form action="/burgers/{{id}}" method="GET">
-                <button>Devour</button>
-                    
-                </form>
+                <button class="devour" data-id="{{id}}">Devour</button>
+                    {{/unless}}
                 {{/each}}
             </ul>
         </div>
         <div class="col-6">
             <h1>Burgers eaten:</h1>
-
+            <ul>
+                {{#each burger}}
+                    {{#if devoured}}
+                <li>The {{burger_name}} has been eaten.</li>
+                    {{/if}}
+                {{/each}}
+            </ul>
         </div>
     </div>
 </div>

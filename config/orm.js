@@ -24,7 +24,7 @@ var orm = {
         // queryString += printQuestionMarks(values.length);
         // queryString += ") ";
 
-        console.log(queryString);
+        console.log("querystring from insertOne: ", queryString);
 
         connection.query(queryString, values, function (err, sqlData) {
             if (err) {
@@ -34,10 +34,10 @@ var orm = {
         });
     },
     updateOne: function (tableName, columnValsObj, condition, cb) {
-        var queryString = `
-            UPDATE ${tableName} 
-            SET (${columnValsObj}) 
-            WHERE ${condition}`;
+        var queryString = `UPDATE ${tableName} SET ${columnValsObj} WHERE ${condition}`;
+        console.log(queryString);
+        console.log("from orm", tableName, columnValsObj, condition)
+
 // columnValsObj devoured = true
 // where ID = specific burger
 
@@ -46,7 +46,7 @@ var orm = {
         // queryString += " WHERE ";
         // queryString += condition;
 
-        console.log(queryString);
+        console.log("querystring updateOne: "+ queryString);
         connection.query(queryString, function (err, sqlData) {
             if (err) {
                 throw err;

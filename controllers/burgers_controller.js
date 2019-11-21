@@ -28,17 +28,16 @@ router.get("/burgers/:id", function(req, res) {
 })
 
 router.post("/api/burgers", function (req, res) {
-    console.log(req.body);
-    // burger_name and devoured are columns
+    console.log("post req.body: ",req.body);
+    let tableName = "burgers"
+    // burger_name and devoured are column headers
     // in mySQL
-    burger.insertOne([
-        "burger_name", "devoured"
-    ], [
-        // req.body.burger_name comes from
-        // html input name attribute
-        req.body.burger_name, false
-    ], function (result) {
-        // Send back the ID of the new quote
+    let columnNamesArr = ["burger_name", "devoured"];
+    // req.body.burger_namez comes from
+    // html input name attribute
+    let colValsArr = [req.body.burger_namez, false];
+
+    burger.insertOne(tableName, columnNamesArr, colValsArr, function (result) {
         res.redirect("/");
     });
 });
@@ -46,14 +45,14 @@ router.post("/api/burgers", function (req, res) {
 router.put("/api/burgers/:id", function(req, res) {
     var tableName = "burgers";
     // devoured: true for columnValsObj
-    var columnValsObj = `devoured=true`
+    var setClause = `devoured=true`
     // let id = req.params.id;
-    var condition = `id = ${req.params.id}`
+    var whereClause = `id = ${req.params.id}`
   
-    console.log("condition", condition);
-    console.log("from controller",tableName, columnValsObj, condition)
+    console.log("condition", whereClause);
+    console.log("from controller",tableName, setClause, whereClause)
     burger.updateOne(tableName,
-    columnValsObj, condition, function(result) {
+        setClause, whereClause, function(result) {
       if (result.changedRows == 0) {
         // If no rows were changed, then the ID must not exist, so 404
         return res.status(404).end();

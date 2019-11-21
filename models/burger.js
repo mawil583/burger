@@ -8,15 +8,15 @@ var burger = {
       });
     },
     // The variables cols and vals are arrays.
-    insertOne: function(cols, vals, cb) {
-      orm.insertOne("burgers", cols, vals, function(res) {
+    insertOne: function(tableName, columnNamesArr, colValsArr, cb) {
+      orm.insertOne(tableName, columnNamesArr, colValsArr, function(res) {
         cb(res);
       });
     },
-    updateOne: function(tableName, columnValsObj, condition, cb) {
-        console.log("from burger.js", columnValsObj, condition)
+    updateOne: function(tableName, setClause, whereClause, cb) {
+        console.log("from burger.js", setClause, whereClause)
 
-      orm.updateOne(tableName, columnValsObj, condition, function(res) {
+      orm.updateOne(tableName, setClause, whereClause, function(res) {
 
         cb(res);
 

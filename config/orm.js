@@ -2,7 +2,7 @@ let connection = require("./connection.js");
 
 var orm = {
     selectAll: function (tableName, cb) {
-        var query = "SELECT * FROM " + tableName + ";";
+        var query = `SELECT * FROM ${tableName};`;
         connection.query(query, function (err, sqlData) {
             if (err) {
                 throw err;
@@ -10,41 +10,25 @@ var orm = {
             cb(sqlData);
         });
     },
-    insertOne: function (tableName, columnName, values, cb) {
+    insertOne: function (tableName, columnNamesArr, colValsArr, cb) {
         
         var queryString =
             `INSERT INTO ${tableName}
-             (${columnName}) 
-             VALUES ('${values[0]}', ${values[1]})`;
-
-        // queryString += " (";
-        // queryString += columnName.toString();
-        // queryString += ") ";
-        // queryString += "VALUES (";
-        // queryString += printQuestionMarks(values.length);
-        // queryString += ") ";
-
+             (${columnNamesArr}) 
+             VALUES ('${colValsArr[0]}', ${colValsArr[1]});`;
         console.log("querystring from insertOne: ", queryString);
 
-        connection.query(queryString, values, function (err, sqlData) {
+        connection.query(queryString, colValsArr, function (err, sqlData) {
             if (err) {
                 throw err;
             }
             cb(sqlData);
         });
     },
-    updateOne: function (tableName, columnValsObj, condition, cb) {
-        var queryString = `UPDATE ${tableName} SET ${columnValsObj} WHERE ${condition}`;
+    updateOne: function (tableName, setClause, whereClause, cb) {
+        var queryString = `UPDATE ${tableName} SET ${setClause} WHERE ${whereClause}`;
         console.log(queryString);
-        console.log("from orm", tableName, columnValsObj, condition)
-
-// columnValsObj devoured = true
-// where ID = specific burger
-
-        // queryString += " SET ";
-        // queryString += objToSql(columnValsObj);
-        // queryString += " WHERE ";
-        // queryString += condition;
+        console.log("from orm", tableName, setClause, whereClause)
 
         console.log("querystring updateOne: "+ queryString);
         connection.query(queryString, function (err, sqlData) {

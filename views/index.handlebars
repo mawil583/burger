@@ -1,47 +1,58 @@
 <div class="container">
     <div class="row">
-        <div class="col-6">
-            <h1>Burgers to eat</h1>
-            <ul>
-                {{!-- When the root path is entered into the browser,
-                my route funciton grabs data (object with burger as key 
-                and devoured/burger_name as values) from mySQL and then
-                serves an html page where handlebars inserts mySQL data--}}
-                {{#each burger}}
-                    {{#unless devoured}}
-                <li>Burger Name: {{burger_name}}</li>
-                <button class="devour" data-id="{{id}}">Devour</button>
-                    {{/unless}}
-                {{/each}}
-            </ul>
+        <div class="col d-flex justify-content-end p-2">
+
+            <h1 class='d-flex justify-content-end'> Eat Da Burger!</h1>
+
+            <br>
+            <hr>
         </div>
-        <div class="col-6">
-            <h1>Burgers eaten:</h1>
-            <ul>
-                {{#each burger}}
-                    {{#if devoured}}
-                <li>The {{burger_name}} has been eaten.</li>
-                    {{/if}}
-                {{/each}}
-            </ul>
-        </div>
+    </div>
+    <div class="row">
+        <br>
+        <form class="d-flex justify-content-center p-2" action="/api/burgers" method="post">
+
+            <div class="form-group">
+                <label>Burger Name:</label>
+                {{!-- the value of the user's input gets 
+                assigned to the variable "burger_namez" which 
+                can be accessed with req.body.burger_namez --}}
+                <input type="text" name="burger_namez">
+
+            </div>
+            <button type="submit">Add Burger</button>
+        </form>
+
     </div>
 </div>
 
 
 
-
-
-
-<form action="/api/burgers" method="post">
-
-    <div class="form-group">
-        <label>Burger Name:</label>
-        {{!-- the value of the user's input gets 
-        assigned to the variable "burger_namez" which 
-        can be accessed with req.body.burger_namez --}}
-        <input type="text" name="burger_namez">
-
+<div class="row">
+    <div class="col-6">
+        <h1>Burgers to eat</h1>
+        <ul>
+            {{!-- When the root path is entered into the browser,
+                my route funciton grabs data (object with burger as key 
+                and devoured/burger_name as values) from mySQL and then
+                serves an html page where handlebars inserts mySQL data--}}
+            {{#each burger}}
+            {{#unless devoured}}
+            <li>Burger Name: {{burger_name}} burger</li>
+            <button class="devour" data-id="{{id}}">Devour</button>
+            {{/unless}}
+            {{/each}}
+        </ul>
     </div>
-    <button type="submit">Add Burger</button>
-</form>
+    <div class="col-6">
+        <h1>Burgers eaten:</h1>
+        <ul>
+            {{#each burger}}
+            {{#if devoured}}
+            <li>The {{burger_name}} burger has been eaten.</li>
+            {{/if}}
+            {{/each}}
+        </ul>
+    </div>
+</div>
+</div>

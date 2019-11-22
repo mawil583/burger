@@ -15,14 +15,13 @@ router.get("/", function (req, res) {
             burger: data
         };
         console.log("GETdata",hbsObject);
-        // this sends and html file "index" to the client
+        // this sends an html file "index" to the client
         // (browser) along with database info
         res.render("index", hbsObject);
     });
 });
 
 router.get("/burgers/:id", function(req, res) {
-    // burger.updateOne()
     console.log(req.params.id);
     res.redirect("/")
 })

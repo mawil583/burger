@@ -43,13 +43,12 @@ router.post("/api/burgers", function (req, res) {
 
 router.put("/api/burgers/:id", function(req, res) {
     var tableName = "burgers";
-    // devoured: true for columnValsObj
     var setClause = `devoured=true`
     // let id = req.params.id;
     var whereClause = `id = ${req.params.id}`
   
     console.log("condition", whereClause);
-    console.log("from controller",tableName, setClause, whereClause)
+    console.log("from controller", tableName, setClause, whereClause)
     burger.updateOne(tableName,
         setClause, whereClause, function(result) {
       if (result.changedRows == 0) {
